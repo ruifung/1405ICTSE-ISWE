@@ -1,0 +1,118 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="home-page">
+    <template>
+        <style include="iron-flex">
+            :host {
+                height: 100%;
+            }
+            #pane > .paper-header {
+                height: 256px;
+                background: #ee1c25;
+            }
+            #pane #outerContent {
+                background: transparent;
+                margin: 10vh 10vw 10vh 10vw;
+            }
+            #pane #innerContent {
+                background: white;
+                min-height: 25vh;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .featured {
+                display: inline-flex;
+                justify-content: center;
+                height: 256px;
+                max-width: calc(50% - 4px);
+                margin: 1px;
+            }
+            
+            .featured > * {
+                float: left;
+                height: 256px;
+            }
+            
+            .featured > #title:after {
+                clear:both;
+                display: table;
+            }
+
+            #image {
+                height: 256px;
+                width: 256px;
+            }
+        </style>
+        <paper-header-panel id="pane" mode="cover">
+            <div class="paper-header"></div>
+            <div id="outerContent">
+                <paper-material id="innerContent">
+                    <div class="featured">
+                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
+                        <div style="overflow-y:auto; position: relative;">
+                            <span>ARCLIGHT</span>
+                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
+                            <span style="">READ MORE</span>
+                        </div>
+                    </div>
+                    <div class="featured">
+                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
+                        <div style="overflow-y:auto; position: relative;">
+                            <span>ARCLIGHT</span>
+                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
+                            <span style="">READ MORE</span>
+                        </div>
+                    </div>
+                    <div class="featured">
+                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
+                        <div style="overflow-y:auto; position: relative;">
+                            <span>ARCLIGHT</span>
+                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
+                            <span style="">READ MORE</span>
+                        </div>
+                    </div>
+                    <div class="featured">
+                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
+                        <div style="overflow-y:auto; position: relative;">
+                            <span>ARCLIGHT</span>
+                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
+                            <span style="">READ MORE</span>
+                        </div>
+                    </div>
+                    <div class="featured">
+                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
+                        <div style="overflow-y:auto; position: relative;">
+                            <span>ARCLIGHT</span>
+                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
+                            <span style="">READ MORE</span>
+                        </div>
+                    </div>
+                    <div class="featured">
+                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
+                        <div style="overflow-y:auto; position: relative;">
+                            <span>ARCLIGHT</span>
+                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
+                            <span style="">READ MORE</span>
+                        </div>
+                    </div>
+                </paper-material>
+            </div>
+        </paper-header-panel>
+    </template>
+    <script>
+        Polymer({
+            is: "home-page",
+            properties: {
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,17 @@
+<dom-module id="global-styles">
+    <template>
+        <style>
+            paper-toolbar.hidden-expanded:not(.tall) > .expanded-only {
+                display: none;
+            }
+            
+            .cf:before, .cf:after {
+                content:"";
+                display:table;
+            }
+            .cf:after {
+                clear:both;
+            }
+        </style>
+    </template>
+</dom-module>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- Bootstrap page and delegate to iswe-root -->
+<html>
+    <head>
+        <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+        <script src="assets/js/rf-base.js"></script>
+        <script>
+            window.Polymer = {
+                dom: 'shadow'
+            };
+        </script>
+        <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+        <link rel="import" href="components/iswe-root.html">
+        <style is="custom-style" include="iron-positioning"></style>
+        <style is="custom-style" include="iron-flex"></style>
+    </head>
+	<body class="fullbleed layout vertical">
+		<iswe-root></iswe-root>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "ISWE",
+  "authors": [
+    "ruifung <ruifungyip@gmail.com>"
+  ],
+  "description": "1405ICTSE-ISWE",
+  "main": "",
+  "moduleType": [],
+  "license": "All Rights Reserved",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.5",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.4",
+    "paper-button": "PolymerElements/paper-button#^1.0.11",
+    "paper-tabs": "PolymerElements/paper-tabs#^1.3.7",
+    "paper-input": "PolymerElements/paper-input#^1.1.10",
+    "neon-animation": "PolymerElements/neon-animation#^1.1.1",
+    "iron-image": "PolymerElements/iron-image#^1.2.3",
+    "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.15",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.7",
+    "iron-location": "PolymerElements/iron-page-url#^0.8.0",
+    "paper-material": "PolymerElements/paper-material#^1.0.6",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.2.0",
+    "carbon-route": "PolymerElements/carbon-route#^0.8.4"
+  }
+}
