@@ -16,7 +16,8 @@
         <style include="iron-flex"></style>
         <style include="global-styles">
             :host {
-                height: 100vh
+                height: 100vh;
+                font-family: 'Roboto', 'Noto', sans-serif;
             }
             
             #header > * {
@@ -55,15 +56,20 @@
                 <div>
                     <a href="/"><h2 style="padding-right: 5px;">Northern Fame Books</h2></a>
                 </div>
-                <paper-tabs attr-for-selected="page" selected="{{routedata.page}}">
-                    <template is="dom-repeat" items="{{pages}}">
+                <paper-tabs attr-for-selected="page" selected="{{selected}}">
+                    <template is="dom-repeat" items="{{pages}}" filter="isLeftTabPage">
+                        <paper-tab page$="[[item.page]]">[[item.title]]</paper-tab>
+                    </template>
+                </paper-tabs>
+                <paper-tabs attr-for-selected="page" selected="{{selected}}" style="height:100%; position: absolute; right: 0;">
+                    <template is="dom-repeat" items="{{pages}}" filter="isRightTabPage">
                         <paper-tab page$="[[item.page]]">[[item.title]]</paper-tab>
                     </template>
                 </paper-tabs>
             </paper-toolbar>
             
             <neon-animated-pages id="pageSwitcher" class="contentBody flex layout vertical" 
-                                 attr-for-selected="page" selected="[[routedata.page]]"
+                                 attr-for-selected="page" selected="[[currentpage]]"
                                  entry-animation="slide-from-top-animation" exit-animation="fade-out-animation">
             </neon-animated-pages>
         </paper-header-panel>
@@ -82,12 +88,17 @@
                         attributes: []
                     },
                     {
-                        title: 'TEST2',
-                        page: 'test'
+                        title: 'About Us',
+                        path: 'about-page.html',
+                        tag: 'about-page',
+                        page: 'about'
                     },
                     {
-                        title: 'TEST3',
-                        page: 'test1',
+                        title: 'Login / Register',
+                        page: 'login',
+                        path: 'login-page.html',
+                        tag: 'login-page',
+                        right: true
                     },
                     {
                         title: 'TEST4',
@@ -113,19 +124,74 @@
                             }
                         pagesDom.appendChild(elem);
                     }
-                    if (typeof pageObj.path === "string")
-                        this.importHref(this.resolveUrl(pageObj.path), null, null, true);
+                    if (typeof pageObj.path === "string") {
+                        this.async(function() {
+                            this.ctx.importHref(this.ctx.resolveUrl(this.pageObj.path), null, null);    
+                        }.bind({ctx: this, pageObj: pageObj}));
+                    }
                 }
+                
             },
             properties: {
                 selected: {
+                    type: String
+                },
+                
+                loggedin: {
+                    type: Boolean,
+                    value: false
+                },
+                
+                currentpage: {
                     type: String,
+                    value: ''
                 },
                 
                 data: {
                     type: Object,
                     observer: "_printVal"
+                },
+                
+                selected: {
+                    type: String,
+                    observer: '_pageBlocker',
                 }
+            },
+            
+            observers: [
+                'routePageChanged(routedata.page)'
+            ],
+            
+            isRightTabPage: function(item) {
+                return item.right;
+            },
+             
+            isLeftTabPage: function(item) {
+                return !item.right;
+            },
+            
+            routePageChanged: function(page) {
+                if (!this.validatePageChange(page))
+                    this.async(function() {this.set('routedata.page', this.currentpage)});
+                else if(this.selected !== page)
+                    this.set('selected', page);
+            },
+            validatePageChange: function(newPage) {
+                if (newPage === 'login' && this.loggedin) {
+                    return false;
+                }
+                return true;
+            },
+            
+            _pageBlocker: function(nv, ov) {
+                if (!this.validatePageChange(nv)) {
+                    this.selected = ov;
+                    return;
+                }
+                if (this.routedata.page !== nv)
+                    this.set('routedata.page', nv);
+                if (this.currentpage !== nv)
+                    this.set("currentpage", nv);
             },
             
             _selectedTabChanged: function(nv, ov) {
@@ -133,6 +199,7 @@
             },
             
             _printVal: function(nv, ov) {
+                console.log(ov);
                 console.log(nv);
             }
         });

@@ -18,6 +18,7 @@
         <style include="iron-flex">
             :host {
                 height: 100%;
+                font-family: 'Roboto', 'Noto', sans-serif;
             }
             #pane > .paper-header {
                 height: 256px;
@@ -25,7 +26,7 @@
             }
             #pane #outerContent {
                 background: transparent;
-                margin: 10vh 10vw 10vh 10vw;
+                margin: 0px 8vw 10vh 8vw;
             }
             #pane #innerContent {
                 background: white;
@@ -58,7 +59,7 @@
             <div class="paper-header"></div>
             <div id="outerContent">
                 <paper-material id="innerContent">
-                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:500px; width:100%; color:white;">
+                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:20em; width:100%; color:white;">
                         <div class="searchBar">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3"> 
@@ -74,33 +75,19 @@
                             <div style="height: 18em;"></div>
                         </div>
                     </div>
-                            <div class="row" style="padding:15px;">
-                                <h3 style="margin-left:15px;"><b>New Arrivals!</b></h3>
-                                <div class="col-sm-4">
-                                    <a href="user/general/item/item1.html" class="thumbnail">
-                                        <img src="/assets/arclight-cover.jpg" alt="">
-                                    </a>
-                                    <h3>Harry Potter</h3>
-                                    <p>This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. </p>
-                                    <paper-button raised>View</paper-button>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a href="user/general/item/item1.html" class="thumbnail">
-                                        <img src="/assets/arclight-cover.jpg" alt="">
-                                    </a>
-                                    <h3>Harry Potter</h3>
-                                    <p>This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. </p>
-                                    <paper-button raised>View</paper-button>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a href="user/general/item/item1.html" class="thumbnail">
-                                        <img src="/assets/arclight-cover.jpg" alt="">
-                                    </a>
-                                    <h3>Harry Potter</h3>
-                                    <p>This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. </p>
-                                    <paper-button raised>View</paper-button>
-                                </div>
+                    <div class="row" style="padding:15px;">
+                        <h3 style="margin-left:15px;"><b>New Arrivals!</b></h3>
+                        <template is="dom-repeat" items="[[books]]">
+                            <div class="col-sm-4" style="">
+                                <paper-material elevation="2" class="thumbnail" style="border: none; margin-bottom:1em;">
+                                    <img src="[[item.cover]]" alt="">
+                                    <h3>[[item.title]]</h3>
+                                    <p>[[item.desc]]</p>
+                                    <paper-button raised style="margin-bottom:5px;">View</paper-button>
+                                </paper-material>
                             </div>
+                        </template>
+                    </div>
                 </paper-material>
             </div>
         </paper-header-panel>
@@ -109,6 +96,42 @@
         Polymer({
             is: "home-page",
             properties: {
+            },
+            
+            ready: function() {
+                this.books = [
+                    {
+                        title: 'A Book',
+                        cover: '/assets/arclight-cover.jpg',
+                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.'
+                    },
+                    {
+                        title: 'A Book',
+                        cover: '/assets/arclight-cover.jpg',
+                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.'
+                    },
+                    {
+                        title: 'A Book',
+                        cover: '/assets/arclight-cover.jpg',
+                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.'
+                    },
+                    {
+                        title: 'A Book',
+                        cover: '/assets/arclight-cover.jpg',
+                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.'
+                    },
+                    {
+                        title: 'A Book',
+                        cover: '/assets/arclight-cover.jpg',
+                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.'
+                    },
+                    {
+                        title: 'A Book',
+                        cover: '/assets/arclight-cover.jpg',
+                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.'
+                    },
+                    
+                ]
             }
         });
     </script>
