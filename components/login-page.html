@@ -15,7 +15,8 @@
             }
             #pane > .paper-header {
                 height: 256px;
-                background: url(/assets/Bookshelf.jpg);
+                background: #eee;
+                /*url(/assets/Bookshelf.jpg)*/
             }
             #pane #outerContent {
                 background: transparent;
@@ -34,7 +35,7 @@
             }
             
             paper-button {
-                margin-bottom: 1em;
+                margin: 1em auto 1em auto;
             }
             
             .middle-border {
@@ -43,6 +44,11 @@
                 top: 50%;
                 transform: translateY(-50%) translateX(-50%);
                 border-right: 1px solid #ddd;
+            }
+            
+            .container.container {
+                padding: 0px;
+                margin: auto 15px auto 15px;
             }
             
             .btn-social { color: white; }
@@ -58,71 +64,68 @@
             <div class="paper-header"></div>
             <div id="outerContent">
                 <paper-material id="innerContent" class="container">
-                    <div class="row">
-                        <div class="col-sm-8 text">
-                            <h1>Login/Register - NFB e-Bookstore</h1>
-                        </div>
-                        </div>
-                            <div class="row" style="display: flex; justify-content: center;">
-                                <div class="col-sm-5">
-                                    <div class="form-box">
-                                        <div class="form-top">
-                                            <div class="form-top-left">
-                                                <h3>Login to our website!</h3>
-                                                <p>Please enter username and password to login:</p>
-                                            </div>
-                                            <div class="form-top-right">
-                                                <i class="fa fa-key"></i>
-                                            </div>
-                                         </div>
-                                         <div class="form-bottom">
-                                            <form role="form" action="" method="post" class="login-form">
-                                                <paper-input type="text" label="Username"></paper-input>
-                                                <paper-input type="password" label="Password"></paper-input>
-                                                <paper-button raised>Login!</paper-button>
-                                            </form>
-                                         </div>
-                                      </div>
-
-                                      <div class="social-login">
-                                          <paper-material elevation="2" class="social-login-buttons" style="padding:1em;">
-                                              <h3>Login with</h3>
-                                              <paper-button class="btn-facebook btn-social">Facebook</paper-button>
-                                              <paper-button class="btn-twitter btn-social">Twitter</paper-button>
-                                              <paper-button class="btn-google-plus btn-social">Google +</paper-button>
-                                          </paper-material>
-                                       </div> 
+                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:200px; width:100%; color:white; border-radius: 0px;">
+                        <h1>Login / Register</h1>
+                    </div>
+                    <div class="row" style="display: flex; justify-content: center; position: relative;">
+                        <div class="col-sm-5">
+                            <div class="form-box">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Existing User?</h3>
+                                        <p>Please enter username and password to login:</p>
                                     </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-key"></i>
+                                    </div>
+                                 </div>
+                                 <div class="form-bottom">
+                                    <form role="form" action="" method="post" class="login-form">
+                                        <paper-input type="text" label="Username"></paper-input>
+                                        <paper-input type="password" label="Password"></paper-input>
+                                        <paper-button raised>Login</paper-button>
+                                    </form>
+                                 </div>
+                              </div>
 
-                                    <div class="col-sm-1 middle-border"></div>
-                                    <div class="col-sm-1"></div>
+                              <div class="social-login">
+                                  <paper-material elevation="1" class="social-login-buttons" style="padding:1em;">
+                                      <h4>Login with</h4>
+                                      <paper-button class="btn-facebook btn-social">Facebook</paper-button>
+                                      <paper-button class="btn-twitter btn-social">Twitter</paper-button>
+                                      <paper-button class="btn-google-plus btn-social">Google +</paper-button>
+                                  </paper-material>
+                               </div> 
+                            </div>
 
-                                    <div class="col-sm-5">    	
-                                        <div class="form-box">
-                                            <div class="form-top">
-                                                <div class="form-top-left">
-                                                    <h3>Not a user? Sign up now!</h3>
-                                                    <p>Please fill all details in the form below:</p>
-                                                </div>
-                                                <div class="form-top-right">
-                                                    <i class="fa fa-pencil"></i>
-                                                </div>
-                                            </div>
-                                            <div class="form-bottom">
-                                                <form role="form" action="" method="post" class="registration-form">
-                                                    <paper-input type="text" label="Username"></paper-input>
-                                                    <paper-input type="password" label="Password"></paper-input>
-                                                    <paper-input type="text" label="First Name"></paper-input>
-                                                    <paper-input type="text" label="Last Name"></paper-input>
-                                                    <paper-input type="text" label="e-Mail Address"></paper-input>
-                                                    <paper-button raised>Sign up!</paper-button>
-                                                </form>
-                                            </div>
+                            <div class="col-sm-1 middle-border"></div>
+                            <div class="col-sm-1"></div>
+
+                            <div class="col-sm-5">    	
+                                <div class="form-box">
+                                    <div class="form-top">
+                                        <div class="form-top-left">
+                                            <h3>Not a user? Sign up now!</h3>
+                                            <p>Please fill all details in the form below:</p>
+                                        </div>
+                                        <div class="form-top-right">
+                                            <i class="fa fa-pencil"></i>
                                         </div>
                                     </div>
+                                    <div class="form-bottom">
+                                        <form role="form" action="" method="post" class="registration-form">
+                                            <paper-input type="text" label="Username"></paper-input>
+                                            <paper-input type="password" label="Password"></paper-input>
+                                            <paper-input type="text" label="First Name"></paper-input>
+                                            <paper-input type="text" label="Last Name"></paper-input>
+                                            <paper-input type="text" label="e-Mail Address"></paper-input>
+                                            <paper-button raised>Sign up</paper-button>
+                                        </form>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
                 </paper-material>
-            </div>
         </paper-header-panel>
     </template>
     <script>
