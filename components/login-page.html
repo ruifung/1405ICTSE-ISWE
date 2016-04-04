@@ -4,32 +4,19 @@
 <link rel="import" href="/bower_components/paper-material/paper-material.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/styles/global-styles.html">
+
 
 <dom-module id="login-page">
     <template>
         <style include="bootstrap"></style>
+        <style include="global-styles"></style>
         <style include="iron-flex">
             :host {
                 height: 100%;
                 font-family: 'Roboto', 'Noto', sans-serif;
             }
-            #pane > .paper-header {
-                height: 256px;
-                background: #eee;
-                /*url(/assets/Bookshelf.jpg)*/
-            }
-            #pane #outerContent {
-                background: transparent;
-                margin: 0px 10vw 1vh 10vw;
-            }
-            #pane #innerContent {
-                background: white;
-                min-height: 25vh;
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
+            
             .row {
                 width: 100%;
             }

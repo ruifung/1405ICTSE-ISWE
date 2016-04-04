@@ -11,30 +11,16 @@
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/styles/bootstrap.html">
+<link rel="import" href="/styles/global-styles.html">
 
 <dom-module id="about-page">
     <template>
         <style include="bootstrap"></style>
+        <style include="global-styles"></style>
         <style include="iron-flex">
             :host {
                 height: 100%;
                 font-family: 'Roboto', 'Noto', sans-serif;
-            }
-            #pane > .paper-header {
-                height: 256px;
-                background: #eee;
-            }
-            #pane #outerContent {
-                background: transparent;
-                margin: 0px 10vw 10vh 10vw;
-            }
-            #pane #innerContent {
-                background: white;
-                min-height: 25vh;
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
             }
             
             p {
