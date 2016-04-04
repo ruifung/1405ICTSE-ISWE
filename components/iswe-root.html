@@ -1,13 +1,15 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
-<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
-<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
-<link rel="import" href="../bower_components/iron-location/iron-location.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="/bower_components/iron-location/iron-location.html">
+<link rel="import" href="/bower_components/carbon-route/carbon-location.html">
+<link rel="import" href="/bower_components/carbon-route/carbon-route.html">
 
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../styles/global-styles.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/styles/global-styles.html">
 
 <dom-module id="iswe-root">
     <template>
@@ -18,11 +20,11 @@
             }
             
             #header > * {
-                color: white;
+                color: black;
             }
             
             #header {
-                --paper-toolbar-background: #ee1c25;
+                --paper-toolbar-background: #eee;
             }
             
             #header > paper-tabs {
@@ -36,6 +38,7 @@
             
             #header > paper-tabs > .iron-selected {
                 background-color: black;
+                color: white;
             }
             
             .contentBody {
@@ -44,21 +47,23 @@
                 overflow: auto;
             }
         </style>
-        <iron-location id="location" path="{{selected}}"></iron-location>
+        <iron-location hash="{{hash}}"></iron-location>
+        <carbon-location route="{{route}}"></carbon-location>
+        <carbon-route route="{{route}}" pattern="/:page" data="{{routedata}}" tail="{{subroute1}}"></carbon-route>
         <paper-header-panel class="flex" mode="waterfall">
             <paper-toolbar id="header">
                 <div>
-                    <a href="/"><iron-image src="../assets/homepage_logo.png"></iron-image></a>
+                    <a href="/"><h2 style="padding-right: 5px;">Northern Fame Books</h2></a>
                 </div>
-                <paper-tabs attr-for-selected="url" selected="{{selected}}">
+                <paper-tabs attr-for-selected="page" selected="{{routedata.page}}">
                     <template is="dom-repeat" items="{{pages}}">
-                        <paper-tab url$="[[item.url]]">[[item.title]]</paper-tab>
+                        <paper-tab page$="[[item.page]]">[[item.title]]</paper-tab>
                     </template>
                 </paper-tabs>
             </paper-toolbar>
             
             <neon-animated-pages id="pageSwitcher" class="contentBody flex layout vertical" 
-                                 attr-for-selected="url" selected="[[selected]]"
+                                 attr-for-selected="page" selected="[[routedata.page]]"
                                  entry-animation="slide-from-top-animation" exit-animation="fade-out-animation">
             </neon-animated-pages>
         </paper-header-panel>
@@ -73,24 +78,24 @@
                         title: 'Home',
                         path: 'home-page.html',
                         tag: 'home-page',
-                        url: '/',
+                        page: "",
                         attributes: []
                     },
                     {
                         title: 'TEST2',
-                        url: '/test'
+                        page: 'test'
                     },
                     {
                         title: 'TEST3',
-                        url: '/test1',
+                        page: 'test1',
                     },
                     {
                         title: 'TEST4',
-                        url: '/test2',
+                        page: 'test2',
                     },
                     {
                         title: 'TEST5',
-                        url: '/test3',
+                        page: 'test3',
                     },
                 ];
                 //Setup page definitions
@@ -100,7 +105,7 @@
                     if (typeof pageObj.tag === "string") {
                         var elem = document.createElement(pageObj.tag);
                         var elemDom = Polymer.dom(elem);
-                        elemDom.setAttribute('url', pageObj.url);
+                        elemDom.setAttribute('page', pageObj.page);
                         if (Array.isArray(pageObj.attributes))
                             for (var j = 0; j < pageObj.attributes.length; j++) {
                                 var attrObj = pageObj.attributes[j]
@@ -115,11 +120,20 @@
             properties: {
                 selected: {
                     type: String,
+                },
+                
+                data: {
+                    type: Object,
+                    observer: "_printVal"
                 }
             },
             
             _selectedTabChanged: function(nv, ov) {
                 console.info(nv)
+            },
+            
+            _printVal: function(nv, ov) {
+                console.log(nv);
             }
         });
     </script>

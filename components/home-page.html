@@ -1,20 +1,27 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
-<link rel="import" href="../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/styles/bootstrap.html">
 
 <dom-module id="home-page">
     <template>
+        <style include="bootstrap"></style>
         <style include="iron-flex">
             :host {
                 height: 100%;
             }
             #pane > .paper-header {
                 height: 256px;
-                background: #ee1c25;
+                background: #eee;
             }
             #pane #outerContent {
                 background: transparent;
@@ -29,81 +36,71 @@
                 flex-wrap: wrap;
             }
             
-            .featured {
-                display: inline-flex;
-                justify-content: center;
-                height: 256px;
-                max-width: calc(50% - 4px);
-                margin: 1px;
+            #search {
+                border: 1px solid #ccc;
+                background: rgba(238,238,238,0.7);
+                border-radius: 4px;
             }
             
-            .featured > * {
-                float: left;
-                height: 256px;
+            #searchBox {
+                transform: translateY(-0.5em);
+                padding-left: 3px;
+                --paper-input-container-underline: {
+                    background-color: transparent;
+                }
             }
             
-            .featured > #title:after {
-                clear:both;
-                display: table;
-            }
-
-            #image {
+            .thumbnail.thumbnail img {
                 height: 256px;
-                width: 256px;
             }
         </style>
         <paper-header-panel id="pane" mode="cover">
             <div class="paper-header"></div>
             <div id="outerContent">
                 <paper-material id="innerContent">
-                    <div class="featured">
-                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
-                        <div style="overflow-y:auto; position: relative;">
-                            <span>ARCLIGHT</span>
-                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
-                            <span style="">READ MORE</span>
+                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:500px; width:100%; color:white;">
+                        <div class="searchBar">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3"> 
+                                    <div id="search" class="input-group">
+                                        <paper-input id="searchBox" type="text" placeholder="Search" ></paper-input>
+                                        <span class="input-group-addon" style="background-color:transparent; border-width:0px;">
+                                            <paper-icon-button icon="search" type="submit"></paper-icon-button>
+                                        </span>
+                                    </div>
+                                </div>
+	                        </div>
+                            <h1>Northern Fame Books &amp; Cafe</h1>
+                            <div style="height: 18em;"></div>
                         </div>
                     </div>
-                    <div class="featured">
-                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
-                        <div style="overflow-y:auto; position: relative;">
-                            <span>ARCLIGHT</span>
-                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
-                            <span style="">READ MORE</span>
-                        </div>
-                    </div>
-                    <div class="featured">
-                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
-                        <div style="overflow-y:auto; position: relative;">
-                            <span>ARCLIGHT</span>
-                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
-                            <span style="">READ MORE</span>
-                        </div>
-                    </div>
-                    <div class="featured">
-                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
-                        <div style="overflow-y:auto; position: relative;">
-                            <span>ARCLIGHT</span>
-                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
-                            <span style="">READ MORE</span>
-                        </div>
-                    </div>
-                    <div class="featured">
-                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
-                        <div style="overflow-y:auto; position: relative;">
-                            <span>ARCLIGHT</span>
-                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
-                            <span style="">READ MORE</span>
-                        </div>
-                    </div>
-                    <div class="featured">
-                        <iron-image id="image" sizing="contain" src="../assets/arclight-cover.jpg"></iron-image>
-                        <div style="overflow-y:auto; position: relative;">
-                            <span>ARCLIGHT</span>
-                            <p>Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight Arclight </p>
-                            <span style="">READ MORE</span>
-                        </div>
-                    </div>
+                            <div class="row" style="padding:15px;">
+                                <h3 style="margin-left:15px;"><b>New Arrivals!</b></h3>
+                                <div class="col-sm-4">
+                                    <a href="user/general/item/item1.html" class="thumbnail">
+                                        <img src="/assets/arclight-cover.jpg" alt="">
+                                    </a>
+                                    <h3>Harry Potter</h3>
+                                    <p>This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. </p>
+                                    <paper-button raised>View</paper-button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="user/general/item/item1.html" class="thumbnail">
+                                        <img src="/assets/arclight-cover.jpg" alt="">
+                                    </a>
+                                    <h3>Harry Potter</h3>
+                                    <p>This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. </p>
+                                    <paper-button raised>View</paper-button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="user/general/item/item1.html" class="thumbnail">
+                                        <img src="/assets/arclight-cover.jpg" alt="">
+                                    </a>
+                                    <h3>Harry Potter</h3>
+                                    <p>This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description. </p>
+                                    <paper-button raised>View</paper-button>
+                                </div>
+                            </div>
                 </paper-material>
             </div>
         </paper-header-panel>
