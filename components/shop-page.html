@@ -13,7 +13,7 @@
 <link rel="import" href="/styles/bootstrap.html">
 <link rel="import" href="/styles/global-styles.html">
 
-<dom-module id="home-page">
+<dom-module id="shop-page">
     <template>
         <style include="bootstrap"></style>
         <style include="global-styles"></style>
@@ -22,46 +22,18 @@
                 height: 100%;
                 font-family: 'Roboto', 'Noto', sans-serif;
             }
-
             
-            #search {
-                border: 1px solid #ccc;
-                background: rgba(238,238,238,0.7);
-                border-radius: 4px;
-            }
-            
-            #searchBox {
-                transform: translateY(-0.5em);
-                padding-left: 3px;
-                --paper-input-container-underline: {
-                    background-color: transparent;
-                }
-            }
-            
-            .thumbnail.thumbnail img {
-                height: 256px;
+            p {
+                margin: 0px 15px 15px 15px;
             }
         </style>
-        <iron-localstorage name="NFB-CART" value="{{cartItems}}" on-iron-localstorage-load-empty="initCart"></iron-localstorage>
         <paper-header-panel id="pane" mode="cover">
             <div class="paper-header"></div>
             <div id="outerContent">
                 <paper-material id="innerContent">
-                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:20em; width:100%; color:white;">
-                        <div class="searchBar">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3"> 
-                                    <div id="search" class="input-group">
-                                        <paper-input id="searchBox" type="text" placeholder="Search" ></paper-input>
-                                        <span class="input-group-addon" style="background-color:transparent; border-width:0px;">
-                                            <paper-icon-button icon="search" type="submit"></paper-icon-button>
-                                        </span>
-                                    </div>
-                                </div>
-	                        </div>
-                            <h1>Northern Fame Books &amp; Cafe</h1>
-                            <div style="height: 18em;"></div>
-                        </div>
+                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:200px; width:100%; color:white;">
+                        <h1>Shop now!</h1>
+                        <h4>Great deals all around!</h4>
                     </div>
                     <div class="row" style="padding:15px;">
                         <h3 style="margin-left:15px;"><b>New Arrivals!</b></h3>
@@ -82,12 +54,11 @@
     </template>
     <script>
         Polymer({
-            is: "home-page",
+            is: "shop-page",
             properties: {
-            },
-            
-            ready: function() {
-                this.books = [
+                books: {
+                    type: Array,
+                    value: [
                     {
                         title: 'A Book',
                         cover: '/assets/arclight-cover.jpg',
@@ -142,8 +113,8 @@
                         desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
                         price: '0.00'
                     },
-                    
                 ]
+                }
             }
         });
     </script>

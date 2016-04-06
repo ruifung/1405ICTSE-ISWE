@@ -4,6 +4,7 @@
 <link rel="import" href="/bower_components/paper-material/paper-material.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="/styles/global-styles.html">
 
 
@@ -68,8 +69,8 @@
                                  </div>
                                  <div class="form-bottom">
                                     <form role="form" action="" method="post" class="login-form">
-                                        <paper-input type="text" label="Username"></paper-input>
-                                        <paper-input type="password" label="Password"></paper-input>
+                                        <paper-input auto-validate required type="text" label="Username"></paper-input>
+                                        <paper-input auto-validate required type="password" label="Password"></paper-input>
                                         <paper-button raised>Login</paper-button>
                                     </form>
                                  </div>
@@ -101,11 +102,11 @@
                                     </div>
                                     <div class="form-bottom">
                                         <form role="form" action="" method="post" class="registration-form">
-                                            <paper-input type="text" label="Username"></paper-input>
-                                            <paper-input type="password" label="Password"></paper-input>
-                                            <paper-input type="text" label="First Name"></paper-input>
-                                            <paper-input type="text" label="Last Name"></paper-input>
-                                            <paper-input type="text" label="e-Mail Address"></paper-input>
+                                            <paper-input auto-validate required type="text" label="Username"></paper-input>
+                                            <paper-input auto-validate required type="password" label="Password"></paper-input>
+                                            <paper-input auto-validate required type="text" label="First Name"></paper-input>
+                                            <paper-input auto-validate required type="text" label="Last Name"></paper-input>
+                                            <gold-email-input auto-validate required></gold-email-input>
                                             <paper-button raised>Sign up</paper-button>
                                         </form>
                                     </div>

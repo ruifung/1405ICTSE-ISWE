@@ -16,6 +16,10 @@ if (!this.window.RFBase) {
             }
 
             return params;
+        },
+        
+        isNumeric: function(val) {
+            return Number(parseFloat(val))==val;
         }
     };
 }

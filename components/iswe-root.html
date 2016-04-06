@@ -42,6 +42,12 @@
                 color: white;
             }
             
+            #header #brand {
+                text-decoration: none;
+                font-size: 10pt;
+                color: #777;
+            }
+            
             .contentBody {
                 height: calc(100vh - 64px);
                 width: 100%;
@@ -54,7 +60,7 @@
         <paper-header-panel class="flex" mode="waterfall">
             <paper-toolbar id="header">
                 <div>
-                    <a href="/"><h2 style="padding-right: 5px;">Northern Fame Books</h2></a>
+                    <a id="brand" href="/"><h2 style="padding-right: 5px;">Northern Fame Books</h2></a>
                 </div>
                 <paper-tabs attr-for-selected="page" selected="{{selected}}">
                     <template is="dom-repeat" items="{{pages}}" filter="isLeftTabPage">
@@ -79,36 +85,6 @@
             is: "iswe-root",
             ready: function() {
                 this.title = "TEST TITLE";
-                this.pages = [
-                    {
-                        title: 'Home',
-                        path: 'home-page.html',
-                        tag: 'home-page',
-                        page: "",
-                        attributes: []
-                    },
-                    {
-                        title: 'About Us',
-                        path: 'about-page.html',
-                        tag: 'about-page',
-                        page: 'about'
-                    },
-                    {
-                        title: 'Login / Register',
-                        page: 'login',
-                        path: 'login-page.html',
-                        tag: 'login-page',
-                        right: true
-                    },
-                    {
-                        title: 'TEST4',
-                        page: 'test2',
-                    },
-                    {
-                        title: 'TEST5',
-                        page: 'test3',
-                    },
-                ];
                 //Setup page definitions
                 for (var i = 0; i < this.pages.length; i++) {
                     var pageObj = this.pages[i];
@@ -133,6 +109,51 @@
                 
             },
             properties: {
+                pages: {
+                    type: Array,
+                    value: [
+                        {
+                            title: 'Home',
+                            path: 'home-page.html',
+                            tag: 'home-page',
+                            page: "",
+                            attributes: []
+                        },
+                        {
+                            title: 'About Us',
+                            path: 'about-page.html',
+                            tag: 'about-page',
+                            page: 'about'
+                        },
+                        {
+                            title: 'Shop Now',
+                            page: 'shop',
+                            path: 'shop-page.html',
+                            tag: 'shop-page'
+                        },
+                        {
+                            title: 'Error',
+                            page: 'error',
+                            hidden: true
+                        },
+                        {
+                            title: 'Cart',
+                            page: 'cart',
+                            right: true,
+                            path: 'cart-page.html',
+                            tag: 'cart-page'
+                        },
+                        {
+                            title: 'Login / Register',
+                            pageTitle: 'Login',
+                            page: 'login',
+                            path: 'login-page.html',
+                            tag: 'login-page',
+                            right: true
+                        }
+                    ]
+                },
+                
                 selected: {
                     type: String
                 },
@@ -159,15 +180,29 @@
             },
             
             observers: [
-                'routePageChanged(routedata.page)'
+                'routePageChanged(routedata.page)',
+                'updatePageTitle(currentpage)'
             ],
             
             isRightTabPage: function(item) {
-                return item.right;
+                return item.right && !item.hidden;
             },
              
             isLeftTabPage: function(item) {
-                return !item.right;
+                return !item.right && !item.hidden;
+            },
+            
+            updatePageTitle: function(page) {
+                var i = this.pages.length;
+                while (i-- >= 0) {
+                    var pobj = this.pages[i]
+                    console.log(pobj);
+                    if (pobj.page == page) {
+                        document.title = (pobj.pageTitle ? pobj.pageTitle : pobj.title).concat(' | NFB');
+                        return;
+                    }
+                }
+                document.title = '404 | NFB';
             },
             
             routePageChanged: function(page) {

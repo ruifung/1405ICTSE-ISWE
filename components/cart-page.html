@@ -1,0 +1,162 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-localstorage/iron-localstorage.html">
+
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/styles/bootstrap.html">
+<link rel="import" href="/styles/global-styles.html">
+
+<dom-module id="cart-page">
+    <template>
+        <style include="bootstrap"></style>
+        <style include="global-styles"></style>
+        <style include="iron-flex">
+            :host {
+                height: 100%;
+                font-family: 'Roboto', 'Noto', sans-serif;
+            }
+            
+            #cart {
+                margin: 0px 3vw 15px 3vw;
+                width: initial;
+            }
+            
+            #cart td {
+                vertical-align: middle;
+                border: none;
+            }
+            
+            #cart paper-button {
+                margin: 1em;
+            }
+            
+            #cart tr:hover {
+                background-color: inherit;
+            }
+                
+            #cartfoot {
+                border-top: 2px solid;
+                border-color: rgb(221,221,221);
+                margin: 0px 3vw 15px 3vw;
+                width: 100%;
+                padding-top:.5em;
+                position: relative;
+            }
+        </style>
+        <iron-localstorage name="NFB-CART" value="{{cartItems}}" on-iron-localstorage-load-empty="initCart"></iron-localstorage>
+        <paper-header-panel id="pane" mode="cover">
+            <div class="paper-header"></div>
+            <div id="outerContent">
+                <paper-material id="innerContent">
+                    <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:200px; width:100%; color:white;">
+                        <h1>Your Cart</h1>
+                    </div>
+                    <template is="dom-if" if="[[boolInverse(cartIsEmpty)]]">
+                        <table id="cart" class="table table-hover table-condensed">
+                            <thead style="border-bottom: 2px solid #ddd;">
+                                <tr>
+                                    <th style="width:50%">Product</th>
+                                    <th style="width:10%">Price</th>
+                                    <th style="width:8%">Quantity</th>
+                                    <th style="width:22%" class="text-center">Subtotal</th>
+                                    <th style="width:10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template is="dom-repeat" items="{{cartItems}}">
+                                    <tr>
+                                        <td data-th="Product">
+                                            <div class="row">
+                                                <div class="col-sm-2 hidden-xs"><img src="[[item.img]]" class="img-responsive" />
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <h4 class="nomargin">[[item.title]]</h4>
+                                                    <p>[[item.desc]]</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-th="Price">[[priceFormat(item.price)]]</td>
+                                        <td data-th="Quantity">
+                                            <input is="iron-input" type="number" class="form-control text-center" min=1 bind-value="{{item.amount}}">
+                                        </td>
+                                        <td data-th="Subtotal" class="text-center">[[calculateSubtotal(item.price,item.amount)]]</td>
+                                        <td data-th="Delete"><paper-button item=[[item]] on-tap="deleteEntry">Delete</paper-button></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <div id="cartfoot" class="row">
+                            <paper-button raised style="">Continue Shopping</paper-button>
+                            <div style="position:absolute;right:0;top:0;margin-top:.5em;">
+                                <paper-button raised style="">Checkout</paper-button>
+                            </div>
+                        </div>
+                    </template>
+                    <template is="dom-if" if="[[cartIsEmpty]]">
+                        <p>
+                            Your cart is empty.
+                            Perhaps you should go look for some books?
+                        </p>
+                    </template>
+                </paper-material>
+            </div>
+        </paper-header-panel>
+    </template>
+    <script>
+        Polymer({
+            is: "cart-page",
+            properties: {
+                cartItems: {
+                    type: Array,
+                    notify: true,
+                },
+                cartIsEmpty: {
+                    type: Boolean
+                }
+            },
+            
+            observers: [
+                '_cartContentsChanged(cartItems.splices)'
+            ],
+            initCart: function() {
+                this.cartItems = [{
+                        img: '/assets/arclight-cover.jpg',
+                        title: 'A Book',
+                        desc: 'This is a book',
+                        price: 3,
+                        amount: 1,
+                        subtotal: '0.00'
+                    }]
+            },
+            priceFormat: function(price) {
+                return typeof price === 'number' ? price.toFixed(2) : price;
+            },
+            
+            calculateSubtotal: function(a, b) {
+                return this.priceFormat(a*b);
+            },
+            deleteEntry: function(e) {
+                var ind = this.cartItems.indexOf(e.target.item)
+                if (ind === -1)
+                    return;
+                this.splice('cartItems', ind, 1);
+                console.log(e);
+            },
+            boolInverse: function(b) {
+              return !b;
+            },
+            _cartContentsChanged: function() {
+                this.set('cartIsEmpty',this.cartItems.length > 0 ? false : true);
+            }
+        
+        });
+    </script>
+</dom-module>
