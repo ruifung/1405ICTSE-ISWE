@@ -1,0 +1,74 @@
+[
+    {
+        "id": "00000",
+        "publisher": "bakatashi",
+        "title": "A Book",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 1
+    },
+    {
+        "id": "00001",
+        "publisher": "bakatashi",
+        "title": "A Book 1",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 2
+    },
+    {
+        "id": "00002",
+        "publisher": "bakatashi",
+        "title": "A Book 2",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 3
+    },
+    {
+        "id": "00003",
+        "publisher": "bakatashi",
+        "title": "A Book 3",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 3.5
+    },
+    {
+        "id": "00004",
+        "publisher": "bakatashi",
+        "title": "A Book 4",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 5
+    },
+    {
+        "id": "00005",
+        "publisher": "bakatashi",
+        "title": "A Book 5",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 8
+    },
+    {
+        "id": "00006",
+        "publisher": "bakatashi",
+        "title": "A Book 6",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 10
+    },
+    {
+        "id": "00007",
+        "publisher": "bakatashi",
+        "title": "A Book 7",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 21
+    },
+    {
+        "id": "00008",
+        "publisher": "bakatashi",
+        "title": "A Book 8",
+        "cover": "/assets/arclight-cover.jpg",
+        "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+        "price": 15
+    }
+]

@@ -7,6 +7,7 @@
 <link rel="import" href="/bower_components/iron-location/iron-location.html">
 <link rel="import" href="/bower_components/carbon-route/carbon-location.html">
 <link rel="import" href="/bower_components/carbon-route/carbon-route.html">
+<link rel="import" href="/bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/styles/global-styles.html">
@@ -54,9 +55,13 @@
                 overflow: auto;
             }
         </style>
+        
         <iron-location hash="{{hash}}"></iron-location>
         <carbon-location route="{{route}}"></carbon-location>
         <carbon-route route="{{route}}" pattern="/:page" data="{{routedata}}" tail="{{subroute1}}"></carbon-route>
+        <iron-localstorage id="cartStorage" name="NFB-CART" value="{{cartItems}}"></iron-localstorage>
+        <iron-signals id="signals"></iron-signals>
+        
         <paper-header-panel class="flex" mode="waterfall">
             <paper-toolbar id="header">
                 <div>
@@ -176,6 +181,10 @@
                 selected: {
                     type: String,
                     observer: '_pageBlocker',
+                },
+                
+                cartItems: {
+                    type: Array
                 }
             },
             
@@ -183,6 +192,36 @@
                 'routePageChanged(routedata.page)',
                 'updatePageTitle(currentpage)'
             ],
+            
+            listeners: {
+                "cart-add": "addToCart",
+                "signals.iron-signal-cart-changed": "_signalCartChanged"
+            },
+            
+            addToCart: function(e) {
+                console.log(e)
+                this.$.cartStorage.reload();
+                item = e.detail.item
+                var amt = 0
+                var del = 0
+                var ind = this.cartItems.length
+                console.log(item)
+                console.log(ind)
+                while (ind-- >= 0) {
+                    if (this.cartItems[ind] && this.cartItems[ind].book.id === item.id) {
+                        amt = this.cartItems[ind].amount + 1
+                        del = 1
+                        break
+                    }
+                }
+                this.splice("cartItems", ind < 0 ? this.cartItems.length : ind, del, {
+                    book: item,
+                    amount: this.cartItems.length === 0 ? 1 : amt
+                })
+                console.log(this.cartItems)
+                this.$.cartStorage.save();
+                this.fire('iron-signal', {name: 'cart-changed', data: null});
+            },
             
             isRightTabPage: function(item) {
                 return item.right && !item.hidden;
@@ -236,7 +275,11 @@
             _printVal: function(nv, ov) {
                 console.log(ov);
                 console.log(nv);
-            }
+            },
+            _signalCartChanged: function() {
+                console.log("reload");
+                this.$.cartStorage.reload();
+            },
         });
     </script>
 </dom-module>

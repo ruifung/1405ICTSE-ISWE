@@ -8,6 +8,7 @@
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="/bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -51,7 +52,8 @@
                 position: relative;
             }
         </style>
-        <iron-localstorage name="NFB-CART" value="{{cartItems}}" on-iron-localstorage-load-empty="initCart"></iron-localstorage>
+        <iron-signals id="signals"></iron-signals>
+        <iron-localstorage id="cartStorage" name="NFB-CART" value="{{cartItems}}" on-iron-localstorage-load-empty="initCart"></iron-localstorage>
         <paper-header-panel id="pane" mode="cover">
             <div class="paper-header"></div>
             <div id="outerContent">
@@ -75,20 +77,20 @@
                                     <tr>
                                         <td data-th="Product">
                                             <div class="row">
-                                                <div class="col-sm-2 hidden-xs"><img src="[[item.img]]" class="img-responsive" />
+                                                <div class="col-sm-2 hidden-xs"><img src="[[item.book.cover]]" class="img-responsive" />
                                                 </div>
                                                 <div class="col-sm-10">
-                                                    <h4 class="nomargin">[[item.title]]</h4>
+                                                    <h4 class="nomargin">[[item.book.title]]</h4>
                                                     <p>[[item.desc]]</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td data-th="Price">[[priceFormat(item.price)]]</td>
+                                        <td data-th="Price">[[priceFormat(item.book.price)]]</td>
                                         <td data-th="Quantity">
                                             <input is="iron-input" type="number" class="form-control text-center" min=1 bind-value="{{item.amount}}">
                                         </td>
-                                        <td data-th="Subtotal" class="text-center">[[calculateSubtotal(item.price,item.amount)]]</td>
-                                        <td data-th="Delete"><paper-button item=[[item]] on-tap="deleteEntry">Delete</paper-button></td>
+                                        <td data-th="Subtotal" class="text-center">[[calculateSubtotal(item.book.price,item.amount)]]</td>
+                                        <td data-th="Delete"><paper-button itemid=[[item.book.id]] on-tap="deleteEntry">Delete</paper-button></td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -122,18 +124,24 @@
                     type: Boolean
                 }
             },
-            
+            listeners: {
+                "signals.iron-signal-cart-changed": "_signalCartChanged",
+            },
             observers: [
-                '_cartContentsChanged(cartItems.splices)'
+                '_cartContentsChanged(cartItems.splices)',
+                '_cartContentsChanged(cartItems)'
             ],
             initCart: function() {
                 this.cartItems = [{
-                        img: '/assets/arclight-cover.jpg',
-                        title: 'A Book',
-                        desc: 'This is a book',
-                        price: 3,
-                        amount: 1,
-                        subtotal: '0.00'
+                        book: {
+                            "id": "00000",
+                            "publisher": "bakatashi",
+                            "title": "A Book",
+                            "cover": "/assets/arclight-cover.jpg",
+                            "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
+                            "price": 3
+                        },
+                        amount: 1
                     }]
             },
             priceFormat: function(price) {
@@ -144,17 +152,28 @@
                 return this.priceFormat(a*b);
             },
             deleteEntry: function(e) {
-                var ind = this.cartItems.indexOf(e.target.item)
-                if (ind === -1)
-                    return;
-                this.splice('cartItems', ind, 1);
-                console.log(e);
+                var ind = this.cartItems.length;
+                while (ind-- >= 0) {
+                    if (this.cartItems[ind].book.id === e.target.itemid) {
+                        this.splice('cartItems', ind, 1);
+                        console.log(e);
+                        return;
+                    }
+                }
+                this.$.cartStorage.save();
+                e.target.fire('iron-signal', {name: 'cart-changed', data: null});
             },
             boolInverse: function(b) {
               return !b;
             },
+            _signalCartChanged: function() {
+                this.$.cartStorage.reload();
+            },
             _cartContentsChanged: function() {
                 this.set('cartIsEmpty',this.cartItems.length > 0 ? false : true);
+            },
+            logVal: function(e) {
+                console.log(e);
             }
         
         });

@@ -7,6 +7,7 @@
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -42,6 +43,7 @@
                 height: 256px;
             }
         </style>
+        <iron-ajax auto url='/assets/bookdata.json' handle-as='json' last-response='{{books}}'></iron-ajax>
         <iron-localstorage name="NFB-CART" value="{{cartItems}}" on-iron-localstorage-load-empty="initCart"></iron-localstorage>
         <paper-header-panel id="pane" mode="cover">
             <div class="paper-header"></div>
@@ -71,7 +73,7 @@
                                     <img src="[[item.cover]]" alt="">
                                     <h3>[[item.title]]</h3>
                                     <p>[[item.desc]]</p>
-                                    <paper-button raised style="margin-bottom:5px;">Add to cart (RM<span>[[item.price]]</span>)</paper-button>
+                                    <paper-button raised style="margin-bottom:5px;">Add to cart (RM<span>[[priceFormat(item.price)]]</span>)</paper-button>
                                 </paper-material>
                             </div>
                         </template>
@@ -84,67 +86,14 @@
         Polymer({
             is: "home-page",
             properties: {
+                books: {
+                    type: Array,
+                    notify: true
+                }
             },
-            
-            ready: function() {
-                this.books = [
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    
-                ]
-            }
+            priceFormat: function(price) {
+                return typeof price === 'number' ? price.toFixed(2) : price;
+            },
         });
     </script>
 </dom-module>

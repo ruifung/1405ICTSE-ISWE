@@ -7,6 +7,7 @@
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -26,7 +27,22 @@
             p {
                 margin: 0px 15px 15px 15px;
             }
+            img {
+                max-height: 128px;
+            }
+            
+            #tbl {
+                border-collapse: separate;
+                border-spacing: 0 2px;
+                padding: 0 3vw 0 3vw;
+            }
+            
+            #sortbar {
+                --paper-toolbar-background: #fff;
+                color: black;
+            }
         </style>
+        <iron-ajax auto url='/assets/bookdata.json' handle-as='json' last-response='{{books}}'></iron-ajax>
         <paper-header-panel id="pane" mode="cover">
             <div class="paper-header"></div>
             <div id="outerContent">
@@ -36,17 +52,37 @@
                         <h4>Great deals all around!</h4>
                     </div>
                     <div class="row" style="padding:15px;">
-                        <h3 style="margin-left:15px;"><b>New Arrivals!</b></h3>
-                        <template is="dom-repeat" items="[[books]]">
-                            <div class="col-sm-4" style="">
-                                <paper-material elevation="2" class="thumbnail" style="border: none; margin-bottom:1em;">
-                                    <img src="[[item.cover]]" alt="">
-                                    <h3>[[item.title]]</h3>
-                                    <p>[[item.desc]]</p>
-                                    <paper-button raised style="margin-bottom:5px;">Add to cart (RM<span>[[item.price]]</span>)</paper-button>
-                                </paper-material>
-                            </div>
-                        </template>
+                        <paper-toolbar id="sortbar">
+                            <span>SORT BY:</span>
+                            <paper-button>Publish Date</paper-button>
+                            <paper-button>Alphabetically</paper-button>
+                            <paper-button>Lowest Price First</paper-button>
+                            <paper-button>Highest Rated First</paper-button>
+                        </paper-toolbar>
+                        <table id="tbl">
+                            <thead style="border-bottom: 2px solid #ddd;">
+                                <tr>
+                                    <th style="width:10%">Cover</th>
+                                    <th style="width:8%">Title</th>
+                                    <th style="width:9%">Publisher</th>
+                                    <th style="width:58%">Description</th>
+                                    <th style="width:5%">Price</th>
+                                    <th style="width:10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template is="dom-repeat" items="[[books]]">
+                                    <tr>
+                                        <td><img src="[[item.cover]]"></td>
+                                        <td>[[item.title]]</td>
+                                        <td>[[item.publisher]]</td>
+                                        <td><div style="max-height:128px; overflow: auto;">[[item.desc]]</div></td>
+                                        <td>[[item.price]]</td>
+                                        <td><paper-button bookid="[[item.id]]" on-tap="cartAddEvent">ADD TO CART</paper-button></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
                     </div>
                 </paper-material>
             </div>
@@ -57,63 +93,24 @@
             is: "shop-page",
             properties: {
                 books: {
-                    type: Array,
-                    value: [
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                    {
-                        title: 'A Book',
-                        cover: '/assets/arclight-cover.jpg',
-                        desc: 'Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.',
-                        price: '0.00'
-                    },
-                ]
+                    type: Array
+                }
+            },
+            listeners: {
+                "addToCart": "addToCart"
+            },
+            cartAddEvent: function(e) {
+                this.fire("addToCart",{bid: e.target.bookid});
+            },
+            addToCart: function(e) {
+                var ind = this.books.length;
+                while (ind-- >= 0) {
+                    if (this.books[ind].id === e.detail.bid) {
+                        this.fire("cart-add",{
+                            item: this.books[ind]
+                        })
+                        return;
+                    }
                 }
             }
         });
