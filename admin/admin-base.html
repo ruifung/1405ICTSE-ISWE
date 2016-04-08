@@ -1,0 +1,27 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+
+<dom-module id="admin-base">
+    <template>
+        <paper-header-panel class="flex" mode="waterfall">
+            <paper-toolbar id="header">
+                <div>
+                    <a id="brand" href="/"><h2 style="padding-right: 5px;">NFB Staff Interface</h2></a>
+                </div>
+                <paper-tabs attr-for-selected="page" selected="{{selected}}">
+                    <content select=".tabs-left"></content>
+                </paper-tabs>
+                <paper-tabs attr-for-selected="page" selected="{{selected}}" style="height:100%; position: absolute; right: 0;">
+                    <content select=".tabs-right"></content>
+                </paper-tabs>
+            </paper-toolbar>
+            <content></content>
+        </paper-header-panel>
+    </template>
+
+    <script>
+    </script>
+
+</dom-module>

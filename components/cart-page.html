@@ -9,6 +9,7 @@
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="/bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
 
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -111,6 +112,9 @@
                 </paper-material>
             </div>
         </paper-header-panel>
+        <paper-dialog>
+        
+        </paper-dialog>
     </template>
     <script>
         Polymer({
@@ -132,17 +136,7 @@
                 '_cartContentsChanged(cartItems)'
             ],
             initCart: function() {
-                this.cartItems = [{
-                        book: {
-                            "id": "00000",
-                            "publisher": "bakatashi",
-                            "title": "A Book",
-                            "cover": "/assets/arclight-cover.jpg",
-                            "desc": "Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here. Description Goes Here.",
-                            "price": 3
-                        },
-                        amount: 1
-                    }]
+                this.cartItems = []
             },
             priceFormat: function(price) {
                 return typeof price === 'number' ? price.toFixed(2) : price;
@@ -160,8 +154,11 @@
                         return;
                     }
                 }
+                this.updateCart();
+            },
+            updateCart: function() {
                 this.$.cartStorage.save();
-                e.target.fire('iron-signal', {name: 'cart-changed', data: null});
+                this.fire('iron-signal', {name: 'cart-changed', data: null});
             },
             boolInverse: function(b) {
               return !b;

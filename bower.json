@@ -36,6 +36,8 @@
     "gold-email-input": "PolymerElements/gold-email-input#^1.0.7",
     "iron-localstorage": "PolymerElements/iron-localstorage#^1.0.5",
     "iron-meta": "PolymerElements/iron-meta#^1.1.1",
-    "iron-signals": "PolymerElements/iron-signals#^1.0.3"
+    "iron-signals": "PolymerElements/iron-signals#^1.0.3",
+    "mercury-paginator": "^1.1.2",
+    "zero-list-hero": "^0.2.1"
   }
 }

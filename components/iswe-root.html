@@ -11,9 +11,11 @@
 
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/styles/global-styles.html">
+<link rel="import" href="/styles/bootstrap.html">
 
 <dom-module id="iswe-root">
     <template>
+        <style include="bootstrap"></style>
         <style include="iron-flex"></style>
         <style include="global-styles">
             :host {
@@ -142,6 +144,13 @@
                             hidden: true
                         },
                         {
+                            title: 'Order Tracking',
+                            page: 'tracking',
+                            path: 'tracking-page.html',
+                            tag: 'tracking-page',
+                            right: true
+                        },
+                        {
                             title: 'Cart',
                             page: 'cart',
                             right: true,
@@ -205,18 +214,19 @@
                 var amt = 0
                 var del = 0
                 var ind = this.cartItems.length
-                console.log(item)
-                console.log(ind)
-                while (ind-- >= 0) {
-                    if (this.cartItems[ind] && this.cartItems[ind].book.id === item.id) {
-                        amt = this.cartItems[ind].amount + 1
-                        del = 1
-                        break
+                var empty = ind <= 0
+                if (!empty) {
+                    while (ind-- >= 0) {
+                        if (this.cartItems[ind] && this.cartItems[ind].book.id === item.id) {
+                            amt = this.cartItems[ind].amount + 1
+                            del = 1
+                            break
+                        }
                     }
                 }
-                this.splice("cartItems", ind < 0 ? this.cartItems.length : ind, del, {
+                this.splice("cartItems", empty ? this.cartItems.length : ind, del, {
                     book: item,
-                    amount: this.cartItems.length === 0 ? 1 : amt
+                    amount: amt === 0 ? 1 : amt
                 })
                 console.log(this.cartItems)
                 this.$.cartStorage.save();

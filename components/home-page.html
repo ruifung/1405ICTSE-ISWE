@@ -7,6 +7,7 @@
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/mercury-paginator/mercury-paginator.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
@@ -61,14 +62,15 @@
                                     </div>
                                 </div>
 	                        </div>
-                            <h1>Northern Fame Books &amp; Cafe</h1>
+                            <h1>Northern Fame Bookstores</h1>
+                            <h3>Home to every book under the sun!</h3>
                             <div style="height: 18em;"></div>
                         </div>
                     </div>
                     <div class="row" style="padding:15px;">
                         <h3 style="margin-left:15px;"><b>New Arrivals!</b></h3>
-                        <template is="dom-repeat" items="[[books]]">
-                            <div class="col-sm-4" style="">
+                        <template is="dom-repeat" items="[[bookspaged]]">
+                            <div class="col-sm-4" hero-id$="[[item.id]]">
                                 <paper-material elevation="2" class="thumbnail" style="border: none; margin-bottom:1em;">
                                     <img src="[[item.cover]]" alt="">
                                     <h3>[[item.title]]</h3>
@@ -77,6 +79,7 @@
                                 </paper-material>
                             </div>
                         </template>
+                        <mercury-paginator perpage="3" data="{{books}}" items="{{bookspaged}}"></mercury-paginator>
                     </div>
                 </paper-material>
             </div>
@@ -89,8 +92,14 @@
                 books: {
                     type: Array,
                     notify: true
+                },
+                bookspaged: {
+                    type: Array,
+                    notify: true
                 }
             },
+            observers: [
+            ],
             priceFormat: function(price) {
                 return typeof price === 'number' ? price.toFixed(2) : price;
             },

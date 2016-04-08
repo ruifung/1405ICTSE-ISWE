@@ -8,6 +8,7 @@
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/mercury-paginator/mercury-paginator.html">
 
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -71,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template is="dom-repeat" items="[[books]]">
+                                <template is="dom-repeat" items="[[bookspaged]]">
                                     <tr>
                                         <td><img src="[[item.cover]]"></td>
                                         <td>[[item.title]]</td>
@@ -83,6 +84,7 @@
                                 </template>
                             </tbody>
                         </table>
+                        <mercury-paginator currentpage="{{currpage}}" perpage="10" data="[[books]]" items="{{bookspaged}}"></mercury-paginator>
                     </div>
                 </paper-material>
             </div>
