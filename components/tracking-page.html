@@ -33,24 +33,36 @@
             
             .row.shop-tracking-status {
                 width: 100%;
+                padding: 0 1em 0 1em;
             }
             
             .well.well {
                 border: none;
                 background: none;
+                margin-bottom: 0;
             }
             
             .row.flex {
                 display: flex;
-                flex-direction: row;
                 justify-content: center;
+            }
+            
+            .flex.centeralign {
                 align-items: center;
             }
             
+            .flex.colflex {
+                flex-direction: column;
+            }
+            
+            .flex.rowflex {
+                flex-direction: row;
+            }
+            
             .shop-tracking-status .order-status {
-                margin-top: 150px;
+                margin-top: 80px;
                 position: relative;
-                margin-bottom: 150px
+                margin-bottom: 80px;
             }
             
             .shop-tracking-status .order-status-timeline {
@@ -220,14 +232,13 @@
                     <div class="jumbotron text-center" style="background-image:url('/assets/Bookshelf.jpg'); height:200px; width:100%; color:white;">
                         <h1>Order Tracking</h1>
                     </div>
-                    <div class="row shop-tracking-status flex">
-
+                    <div class="row shop-tracking-status flex colflex">
                         <div class="col-md-12">
                             <div class="well">
 
                                 <div class="form-horizontal">
-                                    <div class="row flex">
-                                        <paper-input style="width: 70%" type="text" id="inputOrderTrackingID" value="" label="Order ID"></paper-input>
+                                    <div class="row flex rowflex centeralign">
+                                        <paper-input style="max-width: 450px" type="text" id="inputOrderTrackingID" value="" label="Order ID"></paper-input>
                                         <div style="display: inline-flex; align-items: center;">
                                             <paper-button type="button" id="shopGetOrderStatusID" class="btn btn-success">Get status</paper-button>
                                         </div>
@@ -251,40 +262,40 @@
                                             <span class="prefix">Comment:</span>
                                             <span class="label label-success">customer's comment goes here</span>
                                         </li>
-                                        <li class="list-group-item">You can find out latest status of your order with the following link:</li>
-                                        <li class="list-group-item"><a href="//tracking/link/goes/here">//tracking/link/goes/here</a></li>
+                                        <li class="list-group-item"><a>Track your order</a></li>
                                     </ul>
                                 </div>
-                                <div class="order-status" style="width-width: 98%; margin-left: 1%; margin-right: 1%">
-
-                                    <div class="order-status-timeline">
-                                        <!-- class names: c0 c1 c2 c3 and c4 -->
-                                        <div class="order-status-timeline-completion c2"></div>
-                                    </div>
-
-                                    <div class="image-order-status image-order-status-new active img-circle">
-                                        <span class="status">Accepted</span>
-                                        <div class="icon"></div>
-                                    </div>
-                                    <div class="image-order-status image-order-status-active active img-circle">
-                                        <span class="status">In progress</span>
-                                        <div class="icon"></div>
-                                    </div>
-                                    <div class="image-order-status image-order-status-intransit active img-circle">
-                                        <span class="status">Shipped</span>
-                                        <div class="icon"></div>
-                                    </div>
-                                    <div class="image-order-status image-order-status-delivered active img-circle">
-                                        <span class="status">Delivered</span>
-                                        <div class="icon"></div>
-                                    </div>
-                                    <div class="image-order-status image-order-status-completed active img-circle">
-                                        <span class="status">Completed</span>
-                                        <div class="icon"></div>
-                                    </div>
-
-                                </div>
                             </div>
+
+                        </div>
+                        <div class="order-status" style="">
+
+                            <div class="order-status-timeline">
+                                <!-- class names: c0 c1 c2 c3 and c4 -->
+                                <div class="order-status-timeline-completion c2"></div>
+                            </div>
+
+                            <div class="image-order-status image-order-status-new active img-circle">
+                                <span class="status">Accepted</span>
+                                <div class="icon"></div>
+                            </div>
+                            <div class="image-order-status image-order-status-active active img-circle">
+                                <span class="status">In progress</span>
+                                <div class="icon"></div>
+                            </div>
+                            <div class="image-order-status image-order-status-intransit active img-circle">
+                                <span class="status">Shipped</span>
+                                <div class="icon"></div>
+                            </div>
+                            <div class="image-order-status image-order-status-delivered active img-circle">
+                                <span class="status">Delivered</span>
+                                <div class="icon"></div>
+                            </div>
+                            <div class="image-order-status image-order-status-completed active img-circle">
+                                <span class="status">Completed</span>
+                                <div class="icon"></div>
+                            </div>
+
                         </div>
                     </div>
                 </paper-material>

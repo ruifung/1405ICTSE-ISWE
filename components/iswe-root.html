@@ -8,7 +8,11 @@
 <link rel="import" href="/bower_components/carbon-route/carbon-location.html">
 <link rel="import" href="/bower_components/carbon-route/carbon-route.html">
 <link rel="import" href="/bower_components/iron-signals/iron-signals.html">
-
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/styles/global-styles.html">
 <link rel="import" href="/styles/bootstrap.html">
@@ -56,14 +60,35 @@
                 width: 100%;
                 overflow: auto;
             }
+            
+            @media(max-width: 821px) {
+                #header #brand {
+                    display: none;
+                }
+            }
+            
+            #btnFeedback {
+                position: absolute;
+                z-index: 1;
+            }
+            
+            #dialogFeedback {
+                width: 50%;
+                transition: width .5s;
+            }
+            @media(max-width: 821px) {
+                #dialogFeedback {
+                    width: 90%;
+                }
+            }
         </style>
-        
+
         <iron-location hash="{{hash}}"></iron-location>
         <carbon-location route="{{route}}"></carbon-location>
         <carbon-route route="{{route}}" pattern="/:page" data="{{routedata}}" tail="{{subroute1}}"></carbon-route>
         <iron-localstorage id="cartStorage" name="NFB-CART" value="{{cartItems}}"></iron-localstorage>
         <iron-signals id="signals"></iron-signals>
-        
+
         <paper-header-panel class="flex" mode="waterfall">
             <paper-toolbar id="header">
                 <div>
@@ -80,17 +105,25 @@
                     </template>
                 </paper-tabs>
             </paper-toolbar>
-            
-            <neon-animated-pages id="pageSwitcher" class="contentBody flex layout vertical" 
-                                 attr-for-selected="page" selected="[[currentpage]]"
-                                 entry-animation="slide-from-top-animation" exit-animation="fade-out-animation">
+            <paper-button id="btnFeedback" on-tap="feedback">Feedback</paper-button>
+            <neon-animated-pages id="pageSwitcher" class="contentBody flex layout vertical" attr-for-selected="page" selected="[[currentpage]]" entry-animation="slide-from-top-animation" exit-animation="fade-out-animation">
             </neon-animated-pages>
+            <paper-dialog id="dialogFeedback" modal on-transitionend="centerFeedback">
+                <h3>Send Feedback</h3>
+                <paper-dialog-scrollable>
+                    <paper-input required label="Name"></paper-input>
+                    <gold-email-input required label="Email"></gold-email-input>
+                    <paper-textarea required label="Message" rows="8"></paper-textarea>
+                </paper-dialog-scrollable>
+                <paper-button dialog-dismiss>Cancel</paper-button>
+                <paper-button dialog-confirm>Send</paper-button>
+            </paper-dialog>
         </paper-header-panel>
     </template>
     <script>
         Polymer({
             is: "iswe-root",
-            ready: function() {
+            ready: function () {
                 this.title = "TEST TITLE";
                 //Setup page definitions
                 for (var i = 0; i < this.pages.length; i++) {
@@ -103,17 +136,20 @@
                         if (Array.isArray(pageObj.attributes))
                             for (var j = 0; j < pageObj.attributes.length; j++) {
                                 var attrObj = pageObj.attributes[j]
-                                elemDom.setAttribute(attrObj.key,attrObj.value);
+                                elemDom.setAttribute(attrObj.key, attrObj.value);
                             }
                         pagesDom.appendChild(elem);
                     }
                     if (typeof pageObj.path === "string") {
-                        this.async(function() {
-                            this.ctx.importHref(this.ctx.resolveUrl(this.pageObj.path), null, null);    
-                        }.bind({ctx: this, pageObj: pageObj}));
+                        this.async(function () {
+                            this.ctx.importHref(this.ctx.resolveUrl(this.pageObj.path), null, null);
+                        }.bind({
+                            ctx: this,
+                            pageObj: pageObj
+                        }));
                     }
                 }
-                
+
             },
             properties: {
                 pages: {
@@ -167,47 +203,59 @@
                         }
                     ]
                 },
-                
+
                 selected: {
                     type: String
                 },
-                
+
                 loggedin: {
                     type: Boolean,
                     value: false
                 },
-                
+
                 currentpage: {
                     type: String,
                     value: ''
                 },
-                
+
                 data: {
                     type: Object,
                     observer: "_printVal"
                 },
-                
+
                 selected: {
                     type: String,
                     observer: '_pageBlocker',
                 },
-                
+
                 cartItems: {
                     type: Array
                 }
             },
-            
+
             observers: [
                 'routePageChanged(routedata.page)',
                 'updatePageTitle(currentpage)'
             ],
-            
+
             listeners: {
                 "cart-add": "addToCart",
-                "signals.iron-signal-cart-changed": "_signalCartChanged"
+                "signals.iron-signal-cart-changed": "_signalCartChanged",
+                "open-feedback": "feedback"
+            },
+
+            feedback: function (e) {
+                this.$.dialogFeedback.open();
             },
             
-            addToCart: function(e) {
+            centerFeedback: function(e) {
+                if (e.propertyName == "left" || e.propertyName == "top")
+                    return;
+                console.log(e.propertyName);
+                this.$.dialogFeedback.center();
+            },
+
+            addToCart: function (e) {
                 console.log(e)
                 this.$.cartStorage.reload();
                 item = e.detail.item
@@ -230,18 +278,21 @@
                 })
                 console.log(this.cartItems)
                 this.$.cartStorage.save();
-                this.fire('iron-signal', {name: 'cart-changed', data: null});
+                this.fire('iron-signal', {
+                    name: 'cart-changed',
+                    data: null
+                });
             },
-            
-            isRightTabPage: function(item) {
+
+            isRightTabPage: function (item) {
                 return item.right && !item.hidden;
             },
-             
-            isLeftTabPage: function(item) {
+
+            isLeftTabPage: function (item) {
                 return !item.right && !item.hidden;
             },
-            
-            updatePageTitle: function(page) {
+
+            updatePageTitle: function (page) {
                 var i = this.pages.length;
                 while (i-- >= 0) {
                     var pobj = this.pages[i]
@@ -253,21 +304,23 @@
                 }
                 document.title = '404 | NFB';
             },
-            
-            routePageChanged: function(page) {
+
+            routePageChanged: function (page) {
                 if (!this.validatePageChange(page))
-                    this.async(function() {this.set('routedata.page', this.currentpage)});
-                else if(this.selected !== page)
+                    this.async(function () {
+                        this.set('routedata.page', this.currentpage)
+                    });
+                else if (this.selected !== page)
                     this.set('selected', page);
             },
-            validatePageChange: function(newPage) {
+            validatePageChange: function (newPage) {
                 if (newPage === 'login' && this.loggedin) {
                     return false;
                 }
                 return true;
             },
-            
-            _pageBlocker: function(nv, ov) {
+
+            _pageBlocker: function (nv, ov) {
                 if (!this.validatePageChange(nv)) {
                     this.selected = ov;
                     return;
@@ -277,16 +330,16 @@
                 if (this.currentpage !== nv)
                     this.set("currentpage", nv);
             },
-            
-            _selectedTabChanged: function(nv, ov) {
+
+            _selectedTabChanged: function (nv, ov) {
                 console.info(nv)
             },
-            
-            _printVal: function(nv, ov) {
+
+            _printVal: function (nv, ov) {
                 console.log(ov);
                 console.log(nv);
             },
-            _signalCartChanged: function() {
+            _signalCartChanged: function () {
                 console.log("reload");
                 this.$.cartStorage.reload();
             },

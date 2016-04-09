@@ -38,6 +38,6 @@
     "iron-meta": "PolymerElements/iron-meta#^1.1.1",
     "iron-signals": "PolymerElements/iron-signals#^1.0.3",
     "mercury-paginator": "^1.1.2",
-    "zero-list-hero": "^0.2.1"
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.4"
   }
 }

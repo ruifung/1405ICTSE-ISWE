@@ -52,6 +52,10 @@
                 padding-top:.5em;
                 position: relative;
             }
+            
+            #emptyCartMessage {
+                margin: 0 15px 15px 15px;
+            }
         </style>
         <iron-signals id="signals"></iron-signals>
         <iron-localstorage id="cartStorage" name="NFB-CART" value="{{cartItems}}" on-iron-localstorage-load-empty="initCart"></iron-localstorage>
@@ -104,15 +108,15 @@
                         </div>
                     </template>
                     <template is="dom-if" if="[[cartIsEmpty]]">
-                        <p>
+                        <p id="emptyCartMessage">
                             Your cart is empty.
-                            Perhaps you should go look for some books?
+                            Perhaps you should go <a href="/shop">look for some books?</a>
                         </p>
                     </template>
                 </paper-material>
             </div>
         </paper-header-panel>
-        <paper-dialog>
+        <paper-dialog id="checkout">
         
         </paper-dialog>
     </template>
