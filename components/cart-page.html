@@ -11,6 +11,14 @@
 <link rel="import" href="/bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
 
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="/bower_components/gold-cc-input/gold-cc-input.html">
+<link rel="import" href="/bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
+<link rel="import" href="/bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
+<link rel="import" href="/bower_components/gold-zip-input/gold-zip-input.html">
+<link rel="import" href="/bower_components/gold-phone-input/gold-phone-input.html">
+
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/styles/bootstrap.html">
@@ -43,18 +51,24 @@
             #cart tr:hover {
                 background-color: inherit;
             }
-                
+            
             #cartfoot {
                 border-top: 2px solid;
-                border-color: rgb(221,221,221);
+                border-color: rgb(221, 221, 221);
                 margin: 0px 3vw 15px 3vw;
                 width: 100%;
-                padding-top:.5em;
+                padding-top: .5em;
                 position: relative;
             }
             
             #emptyCartMessage {
                 margin: 0 15px 15px 15px;
+            }
+            
+            gold-cc-cvc-input,
+            gold-cc-expiration-input {
+                width: 45%;
+                margin: auto;
             }
         </style>
         <iron-signals id="signals"></iron-signals>
@@ -95,7 +109,9 @@
                                             <input is="iron-input" type="number" class="form-control text-center" min=1 bind-value="{{item.amount}}">
                                         </td>
                                         <td data-th="Subtotal" class="text-center">[[calculateSubtotal(item.book.price,item.amount)]]</td>
-                                        <td data-th="Delete"><paper-button itemid=[[item.book.id]] on-tap="deleteEntry">Delete</paper-button></td>
+                                        <td data-th="Delete">
+                                            <paper-button itemid=[[item.book.id]] on-tap="deleteEntry">Delete</paper-button>
+                                        </td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -103,21 +119,39 @@
                         <div id="cartfoot" class="row">
                             <paper-button raised style="">Continue Shopping</paper-button>
                             <div style="position:absolute;right:0;top:0;margin-top:.5em;">
-                                <paper-button raised style="">Checkout</paper-button>
+                                <paper-button raised on-tap="shipinfo">Checkout</paper-button>
                             </div>
                         </div>
                     </template>
                     <template is="dom-if" if="[[cartIsEmpty]]">
                         <p id="emptyCartMessage">
-                            Your cart is empty.
-                            Perhaps you should go <a href="/shop">look for some books?</a>
+                            Your cart is empty. Perhaps you should go <a href="/shop">look for some books?</a>
                         </p>
                     </template>
                 </paper-material>
             </div>
         </paper-header-panel>
-        <paper-dialog id="checkout">
-        
+        <paper-dialog id="billing" modal>
+            <gold-cc-input auto-validate required card-type="{{cardtype}}"></gold-cc-input>
+            <div style="display: flex; flex-direction: row; justify-content: center;">
+                <gold-cc-cvc-input auto-validate required card-type="{{cardtype}}"></gold-cc-cvc-input>
+                <gold-cc-expiration-input auto-validate required preventInvalidInput></gold-cc-expiration-input>
+            </div>
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-confirm>Confirm Payment</paper-button>
+        </paper-dialog>
+        <paper-dialog id="shipping" modal style="width: 50%">
+            <paper-dialog-scrollable>
+                <div style="width:95%;">
+                    <paper-input auto-validate required label="Name"></paper-input>
+                    <paper-textarea auto-validate required label="Address" rows=3></paper-textarea>
+                    <gold-zip-input auto-validate required maxlength="5"></gold-zip-input>
+                    <paper-input auto-validate required label="State"></paper-input>
+                    <gold-phone-input auto-validate required country-code="60" phone-number-pattern="XXXXXXXXXX"></gold-phone-input>
+                </div>
+            </paper-dialog-scrollable>
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-confirm on-tap="checkout">Continue</paper-button>
         </paper-dialog>
     </template>
     <script>
@@ -139,17 +173,17 @@
                 '_cartContentsChanged(cartItems.splices)',
                 '_cartContentsChanged(cartItems)'
             ],
-            initCart: function() {
+            initCart: function () {
                 this.cartItems = []
             },
-            priceFormat: function(price) {
+            priceFormat: function (price) {
                 return typeof price === 'number' ? price.toFixed(2) : price;
             },
-            
-            calculateSubtotal: function(a, b) {
-                return this.priceFormat(a*b);
+
+            calculateSubtotal: function (a, b) {
+                return this.priceFormat(a * b);
             },
-            deleteEntry: function(e) {
+            deleteEntry: function (e) {
                 var ind = this.cartItems.length;
                 while (ind-- >= 0) {
                     if (this.cartItems[ind].book.id === e.target.itemid) {
@@ -160,23 +194,30 @@
                 }
                 this.updateCart();
             },
-            updateCart: function() {
+            updateCart: function () {
                 this.$.cartStorage.save();
-                this.fire('iron-signal', {name: 'cart-changed', data: null});
+                this.fire('iron-signal', {
+                    name: 'cart-changed',
+                    data: null
+                });
             },
-            boolInverse: function(b) {
-              return !b;
+            boolInverse: function (b) {
+                return !b;
             },
-            _signalCartChanged: function() {
+            _signalCartChanged: function () {
                 this.$.cartStorage.reload();
             },
-            _cartContentsChanged: function() {
-                this.set('cartIsEmpty',this.cartItems.length > 0 ? false : true);
+            _cartContentsChanged: function () {
+                this.set('cartIsEmpty', this.cartItems.length > 0 ? false : true);
             },
-            logVal: function(e) {
-                console.log(e);
+
+            shipinfo: function (e) {
+                this.$.shipping.open();
+            },
+            checkout: function (e) {
+                this.$.billing.open();
             }
-        
+
         });
     </script>
 </dom-module>
