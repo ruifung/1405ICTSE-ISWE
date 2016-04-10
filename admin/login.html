@@ -45,7 +45,7 @@
         <title>NFB Staff Area</title>
     </head>
     <body>
-        <template is="dom-bind">
+        <template id="binder" is="dom-bind">
             <paper-material id="loginPane">
                 <h1 style="margin-bottom:0;">NFB Staff Area</h1>
                 <h5>Authorized Users Only</h5>
@@ -53,9 +53,15 @@
                 <paper-input label="Password" type="password"></paper-input>
                 <div id="buttonPane">
                     <paper-button>Cancel</paper-button>
-                    <paper-button raised>Login</paper-button>
+                    <paper-button raised on-tap="login">Login</paper-button>
                 </div>
             </paper-material>
         </template>
+        <script>
+            var binder = document.querySelector("#binder");
+            binder.login = function(e) {
+                window.location.href = "inventory.html";
+            }
+        </script>
     </body>
 </html>

@@ -1,0 +1,164 @@
+<html>
+
+<head>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="components/admin-base.html">
+    <link rel="import" href="styles/admin-shared-styles.html">
+    <link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
+    <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+    <link rel="import" href="/bower_components/paper-button/paper-button.html">
+    <link rel="import" href="/bower_components/mercury-paginator/mercury-paginator.html">
+    <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="/bower_components/paper-input/paper-input.html">
+    <link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+
+    <link rel="import" href="/styles/bootstrap.html">
+
+    <style is="custom-style" include="bootstrap"></style>
+    <style is="custom-style" include="admin-shared-styles">
+        paper-tab {
+            transition: background 0.2s linear;
+        }
+        
+        img {
+            height: 128px;
+        }
+        
+        td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        
+        th {
+            text-align: center;
+        }
+        #main {
+            margin: 0 1em 0 1em;
+        }
+    </style>
+    <title>NFB Staff Area|Statistics'</title>
+</head>
+
+<body>
+    <template is="dom-bind" id="bindtemplate">
+        <admin-base selected="stats">
+            <paper-tab class="tabs-left" page="stats">Statistics</paper-tab>
+            <paper-tab class="tabs-left" page="inv" on-tap="gotoinv">Inventory</paper-tab>
+            <paper-tab class="tabs-left" page="feedback" on-tap="gotofeedback">Customer Feedack</paper-tab>
+            <div id="main">
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Report</h1>
+
+                    </div>
+                </div>
+                <!--/.row-->
+
+
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Sales Satistic</div>
+                            <div class="panel-body">
+                                <div class="canvas-wrapper">
+                                    <canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row-->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Sales Chart</div>
+                            <div class="panel-body">
+                                <div class="canvas-wrapper">
+                                    <canvas class="main-chart" id="bar-chart" height="200" width="600"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Sales Percentage of Recently Added Books</div>
+                            <div class="panel-body">
+                                <div class="canvas-wrapper">
+                                    <canvas class="chart" id="pie-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Sales Percentage of Bundles</div>
+                            <div class="panel-body">
+                                <div class="canvas-wrapper">
+                                    <canvas class="chart" id="doughnut-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row-->
+
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body easypiechart-panel">
+                                <h4>Added Recently</h4>
+                                <span class="percent">10 books</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body easypiechart-panel">
+                                <h4>New Releases</h4>
+                                <span class="percent">5 books</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body easypiechart-panel">
+                                <h4>Bundles On Sale</h4>
+                                <span class="percent">3 bundles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row-->
+
+            </div>
+            <!--/.main-->
+        </admin-base>
+    </template>
+    <script>
+        var binder = document.querySelector("#bindtemplate");
+        binder.gotoinv = function (e) {
+            window.location.href = "inventory.html";
+        }
+        binder.gotofeedback = function (e) {
+            window.location.href = "feedback.html";
+        }
+    </script>
+    
+    <script src="/assets/js/jquery-1.10.2.min.js"></script>
+	<script src="/assets/js/chart.min.js"></script>
+	<script src="/assets/js/chart-data.js"></script>
+	<script src="/assets/js/easypiechart.js"></script>
+	<script src="/assets/js/easypiechart-data.js"></script>
+</body>
+
+</html>
