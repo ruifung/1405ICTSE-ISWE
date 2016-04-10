@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+        <link rel="import" href="/bower_components/polymer/polymer.html">
+        <link rel="import" href="/bower_components/paper-material/paper-material.html">
+        <link rel="import" href="/bower_components/paper-input/paper-input.html">
+        <link rel="import" href="/bower_components/paper-button/paper-button.html">
+        <link rel="import" href="/admin/styles/admin-shared-styles.html">
+        <style is="custom-style" include="admin-shared-styles">
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                background-color: #eee;
+            }
+            
+            #loginPane {
+                background: white;
+                width: 50vw;
+                max-height: 90vh;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                margin: auto;
+                padding: 20px;
+                text-align: center;
+                transition: width: 0.3s ease-out;
+            }
+            
+            @media(max-width: 822px) {
+                #loginPane {
+                    width: 90vw;
+                }
+            }
+        
+            #buttonPane {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                padding: 30px;
+            }
+        </style>
+        <title>NFB Staff Area</title>
+    </head>
+    <body>
+        <template is="dom-bind">
+            <paper-material id="loginPane">
+                <h1 style="margin-bottom:0;">NFB Staff Area</h1>
+                <h5>Authorized Users Only</h5>
+                <paper-input label="Username" type="text"></paper-input>
+                <paper-input label="Password" type="password"></paper-input>
+                <div id="buttonPane">
+                    <paper-button>Cancel</paper-button>
+                    <paper-button raised>Login</paper-button>
+                </div>
+            </paper-material>
+        </template>
+    </body>
+</html>

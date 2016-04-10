@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="components/admin-base.html">
+    <link rel="import" href="styles/admin-shared-styles.html">
+    <link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
+    <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+    <link rel="import" href="/bower_components/paper-button/paper-button.html">
+    <link rel="import" href="/bower_components/mercury-paginator/mercury-paginator.html">
+    <link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+    <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="/bower_components/paper-input/paper-input.html">
+    <link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+
+    <link rel="import" href="/styles/bootstrap.html">
+
+    <style is="custom-style" include="bootstrap"></style>
+    <style is="custom-style" include="admin-shared-styles">
+        paper-tab {
+            transition: background 0.2s linear;
+        }
+        
+        img {
+            height: 128px;
+        }
+        
+        td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        
+        th {
+            text-align: center;
+        }
+    </style>
+    <title>NFB Staff Area|Inventory Management</title>
+</head>
+
+<body>
+    <template is="dom-bind" id="bindtemplate">
+        <iron-ajax auto url='/assets/bookdata.json' handle-as='json' last-response='{{books}}'></iron-ajax>
+        <admin-base selected="inv">
+            <paper-tab class="tabs-left" page="stats" on-tap="gotostats">Statistics</paper-tab>
+            <paper-tab class="tabs-left" page="inv">Inventory</paper-tab>
+            <paper-tab class="tabs-left" page="feedback" on-tap="gotofeedback">Customer Feedack</paper-tab>
+            <div style="margin: 0 1em 0 1em">
+                <h3>Inventory Management <span style="color:red;">(Nonfunctional Prototype UI)</span></h3>
+                <mercury-paginator id="paginator" currentpage="{{currpage}}" perpage="10" data="[[books]]" items="{{bookspaged}}"></mercury-paginator>
+                <table id="cart" class="table table-hover table-condensed">
+                    <thead style="border-bottom: 2px solid #ddd;">
+                        <tr>
+                            <th style="width:5%">
+                                <paper-checkbox checked="{{allcheck}}" on-change="allcheckchanged"></paper-checkbox>
+                            </th>
+                            <th style="width:50%">Product</th>
+                            <th style="width:10%">Price</th>
+                            <th style="width:8%" class="text-center">In Stock</th>
+                            <th style="width:22%"></th>
+                            <th style="width:5%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template id="repeater" is="dom-repeat" items="{{bookspaged}}" filter="filterinv">
+                            <tr>
+                                <td data-th="Multiselect">
+                                    <paper-checkbox class="multiselect" on-change="checkchanged" checked="{{item.selected}}"></paper-checkbox>
+                                </td>
+                                <td data-th="Product" style="text-align: left;">
+                                    <div class="row">
+                                        <div class="col-sm-2 hidden-xs"><img src="[[item.cover]]" class="img-responsive" />
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <h4 class="nomargin">[[item.title]]</h4>
+                                            <p>[[item.desc]]</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price">[[priceFormat(item.price)]]</td>
+                                <td data-th="StockAmount" class="text-center">1</td>
+                                <td data-th="Edit">
+                                    <paper-button on-tap="edit">Edit</paper-button>
+                                    <paper-button>Delete</paper-button>
+                                </td>
+                                <td data-th="Quantity">
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </admin-base>
+
+        <paper-dialog id="editdialog" modal>
+            
+            <paper-dialog-scrollable>
+                <h3>Editing book: [[currentitem.id]]</h3>
+                <paper-input label="Title" value="[[currentitem.title]]"></paper-input>
+                <paper-textarea rows=2 label="Description" value="[[currentitem.desc]]"></paper-textarea>
+                <paper-input label="In Stock" type="number" value="1"></paper-input>
+            </paper-dialog-scrollable>
+            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button dialog-confirm>Save</paper-button>
+        </paper-dialog>
+    </template>
+    <script>
+        var binder = document.querySelector("#bindtemplate");
+        binder.priceFormat = function (price) {
+            return typeof price === 'number' ? price.toFixed(2) : price;
+        }
+        binder.checkchanged = function (e) {
+            if (!e.target.checked)
+                binder.allcheck = false;
+        }
+        binder.allcheckchanged = function (e) {
+            var checkboxes = document.querySelectorAll("paper-checkbox.multiselect");
+            var checked = !!e.target.checked;
+            
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = checked;
+            }
+            for (var i = 0; i < this.books.length; i++) {
+                this.set("books." + i + ".selected", checked);
+            }
+        }
+        binder.filterinv = function (i) {
+            i.selected = i.selected ? i.selected : false;
+            return true;
+        }
+        binder.edit = function(e) {
+            console.log(e.model.item);
+            this.set("currentitem", e.model.item);
+            this.$.editdialog.open();
+        }
+        binder.gotostats = function(e) {
+            window.location.href = "statistics.html";
+        }
+        binder.gotofeedback = function(e) {
+            window.location.href = "feedback.html";
+        }
+    </script>
+</body>
+
+</html>

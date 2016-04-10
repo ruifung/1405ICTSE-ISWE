@@ -5,15 +5,33 @@
 
 <dom-module id="admin-base">
     <template>
+        <style>
+            #header {
+                --paper-toolbar-background: #eee;
+            }
+        
+            #header paper-tabs ::content {
+                color: black;
+            }
+            
+            #header paper-tabs ::content.iron-selected{
+                background: black;
+                color: #eee;
+            }
+            
+            paper-tabs {
+                height: 100%;
+            }
+        </style>
         <paper-header-panel class="flex" mode="waterfall">
             <paper-toolbar id="header">
                 <div>
-                    <a id="brand" href="/"><h2 style="padding-right: 5px;">NFB Staff Interface</h2></a>
+                    <a id="brand" href=""><h2 style="padding-right: 5px;">NFB Staff</h2></a>
                 </div>
                 <paper-tabs attr-for-selected="page" selected="{{selected}}">
                     <content select=".tabs-left"></content>
                 </paper-tabs>
-                <paper-tabs attr-for-selected="page" selected="{{selected}}" style="height:100%; position: absolute; right: 0;">
+                <paper-tabs attr-for-selected="page" selected="{{selected}}" style="position: absolute; right: 0;">
                     <content select=".tabs-right"></content>
                 </paper-tabs>
             </paper-toolbar>
@@ -22,6 +40,16 @@
     </template>
 
     <script>
+        Polymer({
+            is: 'admin-base',
+            properties: {
+                selected: {
+                    type: String,
+                    notify: true
+                }
+            }
+            
+        });
     </script>
 
 </dom-module>
