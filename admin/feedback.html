@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="components/admin-base.html">
+    <link rel="import" href="styles/admin-shared-styles.html">
+    <link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
+    <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+    <link rel="import" href="/bower_components/paper-button/paper-button.html">
+    <link rel="import" href="/bower_components/mercury-paginator/mercury-paginator.html">
+    <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="/bower_components/paper-input/paper-input.html">
+    <link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+
+    <link rel="import" href="/styles/bootstrap.html">
+
+    <style is="custom-style" include="bootstrap"></style>
+    <style is="custom-style" include="admin-shared-styles">
+        paper-tab {
+            transition: background 0.2s linear;
+        }
+        
+        img {
+            height: 128px;
+        }
+        
+        td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        
+        th {
+            text-align: center;
+        }
+    </style>
+    <title>NFB Staff Area|Inventory Management;'</title>
+</head>
+
+<body>
+    <template is="dom-bind" id="bindtemplate">
+        <iron-ajax auto url='feedback.json' handle-as='json' last-response='{{feedback}}'></iron-ajax>
+        <admin-base selected="feedback">
+            <paper-tab class="tabs-left" page="stats" on-tap="gotostats">Statistics</paper-tab>
+            <paper-tab class="tabs-left" page="inv" on-tap="gotoinv">Inventory</paper-tab>
+            <paper-tab class="tabs-left" page="feedback">Customer Feedack</paper-tab>
+            <div style="margin: 0 1em 0 1em">
+                <h3>User Feedback <span style="color:red;">(Nonfunctional Prototype UI)</span></h3>
+                <mercury-paginator id="paginator" currentpage="{{currpage}}" perpage="10" data="{{feedback}}" items="{{itemspaged}}"></mercury-paginator>
+                <table id="cart" class="table table-hover table-condensed">
+                    <thead style="border-bottom: 2px solid #ddd;">
+                        <tr>
+                            <th style="width:5%">
+                                <paper-checkbox checked="{{allcheck}}" on-change="allcheckchanged"></paper-checkbox>
+                            </th>
+                            <th style="width:10%">Name</th>
+                            <th style="width:10%">Email</th>
+                            <th style="width:10%">Date</th>
+                            <th style="width:50%">Message</th>
+                            <th style="width:20%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template id="repeater" is="dom-repeat" items="{{itemspaged}}" filter="filterinv">
+                            <tr>
+                                <td data-th="Multiselect">
+                                    <paper-checkbox class="multiselect" on-change="checkchanged" checked="{{item.selected}}"></paper-checkbox>
+                                </td>
+                                <td data-th="Name">[[item.name]]</td>
+                                <td data-th="Email" class="text-center">[[item.email]]</td>
+                                <td data-th="Date">[[formatDate(item.date)]]</td>
+                                <td data-th="Message">[[item.message]]</td>
+                                <td data-th="Edit">
+                                    <paper-button>Delete</paper-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </admin-base>
+    </template>
+    <script>
+        var binder = document.querySelector("#bindtemplate");
+        binder.checkchanged = function (e) {
+            if (!e.target.checked)
+                binder.allcheck = false;
+        }
+        binder.allcheckchanged = function (e) {
+            var checkboxes = document.querySelectorAll("paper-checkbox.multiselect");
+            var checked = !!e.target.checked;
+            
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = checked;
+            }
+            for (var i = 0; i < this.books.length; i++) {
+                this.set("books." + i + ".selected", checked);
+            }
+        }
+        binder.filterinv = function (i) {
+            i.selected = i.selected ? i.selected : false;
+            return true;
+        }
+        binder.gotostats = function(e) {
+            window.location.href = "statistics.html";
+        }
+        binder.gotoinv = function(e) {
+            window.location.href = "inventory.html";
+        }
+        binder.formatDate = function(date) {
+            var dateObj = new Date(date);
+            console.log(dateObj);
+            return dateObj.toLocaleDateString();
+        }
+    </script>
+</body>
+
+</html>

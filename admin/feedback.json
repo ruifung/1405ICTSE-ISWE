@@ -1,0 +1,33 @@
+[
+    {
+        "name":"User 01",
+        "email":"example@example.com",
+        "message": "I would like to request the book \"Example Book \"",
+        "date": "2016-01-01"
+    },
+    {
+        "name":"User 02",
+        "email":"example@example.com",
+        "message": "Excelent service, but can you add COD payment?",
+        "date": "2016-01-01"
+    },
+    {
+        "name":"User 03",
+        "email":"example@example.com",
+        "message": "Can you add translated light novels too please?",
+        "date": "2016-01-01"
+    },
+    {
+        "name":"User 04",
+        "email":"example@example.com",
+        "message": "Your site does not load properly for me sometimes!",
+        "date": "2016-01-01"
+    },
+    {
+        "name":"User 05",
+        "email":"example@example.com",
+        "message": "Sometimes your delivery is late!",
+        "date": "2016-01-01"
+    }
+    
+]
