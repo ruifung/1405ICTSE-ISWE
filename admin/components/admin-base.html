@@ -2,6 +2,7 @@
 <link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 
 <dom-module id="admin-base">
     <template>
@@ -33,6 +34,7 @@
                 </paper-tabs>
                 <paper-tabs attr-for-selected="page" selected="{{selected}}" style="position: absolute; right: 0;">
                     <content select=".tabs-right"></content>
+                    <paper-button on-tap="logout">Logout</paper-button>
                 </paper-tabs>
             </paper-toolbar>
             <content></content>
@@ -47,6 +49,9 @@
                     type: String,
                     notify: true
                 }
+            },
+            logout: function(e) {
+                window.location.href = "login.html"
             }
             
         });

@@ -48,6 +48,7 @@
             <paper-tab class="tabs-left" page="feedback" on-tap="gotofeedback">Customer Feedack</paper-tab>
             <div style="margin: 0 1em 0 1em">
                 <h3>Inventory Management <span style="color:red;">(Nonfunctional Prototype UI)</span></h3>
+                <div><paper-button raised on-tap="addItem">Add Item</paper-button></div>
                 <mercury-paginator id="paginator" currentpage="{{currpage}}" perpage="10" data="[[books]]" items="{{bookspaged}}"></mercury-paginator>
                 <table id="cart" class="table table-hover table-condensed">
                     <thead style="border-bottom: 2px solid #ddd;">
@@ -93,11 +94,12 @@
             </div>
         </admin-base>
 
-        <paper-dialog id="editdialog" modal>
+        <paper-dialog id="editdialog" modal style="width: 50%;">
             
             <paper-dialog-scrollable>
                 <h3>Editing book: [[currentitem.id]]</h3>
                 <paper-input label="Title" value="[[currentitem.title]]"></paper-input>
+                <paper-input label="Publisher" value="[[currentitem.publisher]]"></paper-input>
                 <paper-textarea rows=2 label="Description" value="[[currentitem.desc]]"></paper-textarea>
                 <paper-input label="In Stock" type="number" value="1"></paper-input>
             </paper-dialog-scrollable>
@@ -139,6 +141,10 @@
         }
         binder.gotofeedback = function(e) {
             window.location.href = "feedback.html";
+        }
+        binder.addItem = function(e) {
+            this.set("currentitem", {});
+            this.$.editdialog.open();
         }
     </script>
 </body>
